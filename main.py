@@ -20,14 +20,28 @@ datapath=datapath[ip-1]
 series_names=series_names[ip-1]
 com_url=datapath+"commentary.xml"
 while(True):
-    time.sleep(15)
     r=requests.get(com_url)
     soup=BeautifulSoup(r.content,'html.parser')
     temp=soup.find('c')
     temp=str(temp)
     temp=temp.replace('<c><![CDATA[',"")
     temp=temp.replace("]]></c>","")
+    print "____"*20
     print temp
+    temp=str(soup.find_all('mscr'))
+    overs=temp.split('ovrs')
+    overs=overs[1]
+    overs=overs.split('"')[1]
+    print "Overs :"+str(overs)
+    batsman=temp.split('btsmn')
+    bat1=batsman[1].split('sname="')[1].split('"')[0]
+    bat2=batsman[3].split('sname="')[1].split('"')[0]
+    r1=batsman[1].split('r="')[1].split('"')[0]
+    r2=batsman[3].split('r="')[1].split('"')[0]
+    print "____"*20
+    print bat1+" :"+r1," "+bat2+" :"+r2
+    time.sleep(15)
+
 # print datapath,series_names
 
 
