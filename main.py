@@ -19,6 +19,7 @@ ip=input("Enter the match number: ")
 datapath=datapath[ip-1]
 series_names=series_names[ip-1]
 com_url=datapath+"commentary.xml"
+old_overs="0"
 while(True):
     r=requests.get(com_url)
     soup=BeautifulSoup(r.content,'html.parser')
@@ -27,7 +28,6 @@ while(True):
     comm=comm.replace('<c><![CDATA[',"")
     comm=comm.replace("]]></c>","")
     print "____"*20
-    print comm
     test=comm
     temp=str(soup.find_all('mscr'))
     runs=temp.split('r="')[3]
@@ -43,9 +43,14 @@ while(True):
     r1=batsman[1].split('r="')[1].split('"')[0]
     r2=batsman[3].split('r="')[1].split('"')[0]
     # print "____"*20
-    print "Score :"+runs + "/"+wickets
-    print "Overs :"+str(overs)
-    print bat1+" :"+r1," "+bat2+" :"+r2
+    if(old_overs ==overs):
+        pass
+    else:
+            print comm
+            print "Score :"+runs + "/"+wickets
+            print "Overs :"+str(overs)
+            print bat1+" :"+r1," "+bat2+" :"+r2
+    old_overs=overs
     time.sleep(15)
 
 # print datapath,series_names
