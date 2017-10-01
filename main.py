@@ -23,11 +23,12 @@ while(True):
     r=requests.get(com_url)
     soup=BeautifulSoup(r.content,'html.parser')
     temp=soup.find('c')
-    temp=str(temp)
-    temp=temp.replace('<c><![CDATA[',"")
-    temp=temp.replace("]]></c>","")
+    comm=str(temp)
+    comm=comm.replace('<c><![CDATA[',"")
+    comm=comm.replace("]]></c>","")
     print "____"*20
-    print temp
+    print comm
+    test=comm
     temp=str(soup.find_all('mscr'))
     runs=temp.split('r="')[3]
     runs=runs.split('"')[0]
