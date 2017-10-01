@@ -27,7 +27,6 @@ while(True):
     comm=str(temp)
     comm=comm.replace('<c><![CDATA[',"")
     comm=comm.replace("]]></c>","")
-    print "____"*20
     test=comm
     temp=str(soup.find_all('mscr'))
     runs=temp.split('r="')[3]
@@ -46,13 +45,13 @@ while(True):
     if(old_overs ==overs):
         pass
     else:
+            print "____"*20
             print comm
             print "Score :"+runs + "/"+wickets
             print "Overs :"+str(overs)
             print bat1+" :"+r1," "+bat2+" :"+r2
     old_overs=overs
     time.sleep(15)
-
 # print datapath,series_names
 
 
