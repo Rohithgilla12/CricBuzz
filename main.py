@@ -68,9 +68,9 @@ while(loop_v==0):
             except:
                 pass
     old_overs=overs
-    time.sleep(15)
     if(int(wickets)==10):
         loop_v=1
+    time.sleep(15)
 # print datapath,series_names
 
 
