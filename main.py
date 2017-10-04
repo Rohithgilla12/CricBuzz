@@ -20,14 +20,20 @@ datapath=datapath[ip-1]
 series_names=series_names[ip-1]
 com_url=datapath+"commentary.xml"
 old_overs="0"
-while(True):
+counter=0;
+loop_v=0
+while(loop_v==0):
     r=requests.get(com_url)
     soup=BeautifulSoup(r.content,'html.parser')
-    temp=soup.find('c')
-    comm=str(temp)
-    comm=comm.replace('<c><![CDATA[',"")
-    comm=comm.replace("]]></c>","")
-    test=comm
+    try:
+        temp=soup.find('c')
+        comm=str(temp)
+        comm=comm.replace('<c><![CDATA[',"")
+        comm=comm.replace("]]></c>","")
+        test=comm
+    except:
+        counter+=1
+        pass
     temp=str(soup.find_all('mscr'))
     runs=temp.split('r="')[3]
     runs=runs.split('"')[0]
@@ -37,10 +43,18 @@ while(True):
     overs=overs[1]
     overs=overs.split('"')[1]
     batsman=temp.split('btsmn')
-    bat1=batsman[1].split('sname="')[1].split('"')[0]
-    bat2=batsman[3].split('sname="')[1].split('"')[0]
-    r1=batsman[1].split('r="')[1].split('"')[0]
-    r2=batsman[3].split('r="')[1].split('"')[0]
+    try:
+        bat1=batsman[1].split('sname="')[1].split('"')[0]
+        r1=batsman[1].split('r="')[1].split('"')[0]
+    except:
+        counter+=1
+        pass
+    try:
+        bat2=batsman[3].split('sname="')[1].split('"')[0]
+        r2=batsman[3].split('r="')[1].split('"')[0]
+    except:
+        counter+=1
+        pass
     # print "____"*20
     if(old_overs ==overs):
         pass
@@ -49,9 +63,14 @@ while(True):
             print comm
             print "Score :"+runs + "/"+wickets
             print "Overs :"+str(overs)
-            print bat1+" :"+r1," "+bat2+" :"+r2
+            try:
+                print bat1+" :"+r1," "+bat2+" :"+r2
+            except:
+                pass
     old_overs=overs
     time.sleep(15)
+    if(int(wickets)==10):
+        loop_v=1
 # print datapath,series_names
 
 
