@@ -1,12 +1,15 @@
 import requests
+from gi.repository import Notify
 from bs4 import BeautifulSoup
 import time
+Notify.init("#CricBuzz!")
 url="http://synd.cricbuzz.com/j2me/1.0/livematches.xml"
 r=requests.get(url)
 soup=BeautifulSoup(r.content,'html.parser')
 temp=soup.find_all('match')
 series_names=[]
 datapath=[]
+count=0
 for i in temp:
     i=str(i)
     i=i.split('datapath')[1]
@@ -57,12 +60,14 @@ while(loop_v==0):
         pass
     # print "____"*20
     if(old_overs ==overs):
+        Notify.Notification.new("Score :"+runs + "/"+wickets + '\n'+"Overs :"+str(overs)).show()
         pass
     else:
             print "____"*20
             print comm
             print "Score :"+runs + "/"+wickets
             print "Overs :"+str(overs)
+            Notify.Notification.new("Score :"+runs + "/"+wickets + '\n'+"Overs :"+str(overs)).show()
             try:
                 print bat1+" :"+r1," "+bat2+" :"+r2
             except:
@@ -70,7 +75,11 @@ while(loop_v==0):
     old_overs=overs
     if(int(wickets)==10):
         loop_v=1
-    time.sleep(15)
+    time.sleep(5)
+    count+=1
+    if(count>3):
+        Notify.Notification.new(bat1+" :"+r1," "+bat2+" :"+r2)
+        count=0
 # print datapath,series_names
 
 
