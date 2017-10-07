@@ -1,6 +1,11 @@
 import requests
 from bs4 import BeautifulSoup
 import time
+import notify2
+notify2.init("CricBuzz")
+n=notify2.Notification(None,icon="/home/rohith-gilla/icon.png")
+n.set_urgency(notify2.URGENCY_NORMAL)
+n.set_timeout(1000)
 url="http://synd.cricbuzz.com/j2me/1.0/livematches.xml"
 r=requests.get(url)
 soup=BeautifulSoup(r.content,'html.parser')
@@ -35,6 +40,7 @@ while(loop_v==0):
         counter+=1
         pass
     temp=str(soup.find_all('mscr'))
+    bat_tem=temp.split('sname="')[1].split('"')[0]
     runs=temp.split('r="')[3]
     runs=runs.split('"')[0]
     wickets=temp.split('wkts="')[1]
@@ -56,6 +62,7 @@ while(loop_v==0):
         counter+=1
         pass
     # print "____"*20
+    n.update(bat_tem+":"+runs + "/"+wickets + " Overs : "+str(overs))
     if(old_overs ==overs):
         pass
     else:
@@ -65,9 +72,11 @@ while(loop_v==0):
             print "Overs :"+str(overs)
             try:
                 print bat1+" :"+r1," "+bat2+" :"+r2
+                n.update(bat_tem+" :"+runs + "/"+wickets + "Overs : "+str(overs),bat1+" :"+r1+" "+bat2+" :"+r2)
             except:
                 pass
     old_overs=overs
+    n.show()
     if(int(wickets)==10):
         loop_v=1
     time.sleep(15)
