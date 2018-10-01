@@ -3,3 +3,4 @@
 
 
 Desktop notification channel for cricket freaks :D
+You can get notifications on your screen for any match which is being shown in Crickbuzz.
