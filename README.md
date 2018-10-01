@@ -4,3 +4,7 @@
 
 Desktop notification channel for cricket freaks :D
 You can get notifications on your screen for any match which is being shown in Crickbuzz.
+
+## License
+
+CricBuzz is released under the [MIT License](https://opensource.org/licenses/MIT)
